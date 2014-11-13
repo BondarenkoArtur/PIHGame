@@ -21,7 +21,7 @@ public class MenuScreen implements Screen {
     public static List<MenuButton> buttonsList = new ArrayList<MenuButton>();
     public static OrthographicCamera camera;
     public int screen;
-    public Controller controller;
+    public Controller controller = new Controller();
     private int fps;
     private BitmapFont font;
     private SpriteBatch batch;
