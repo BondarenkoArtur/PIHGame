@@ -5,13 +5,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.uabart.menu.MenuButton;
 import com.uabart.screens.MenuScreen;
 
-/**
- * Created by Arthur on 11/13/2014.
- */
 public class Controller {
-
-    int x;
-    int y;
 
     public Controller() {
 
@@ -22,8 +16,8 @@ public class Controller {
         MenuScreen.camera.unproject(pos);
         Gdx.app.log("X:" + pos.x, "Y:" + pos.y);
         for (MenuButton button : MenuScreen.buttonsList) {
-            if (pos.x >= x && pos.x <= button.width + x) {
-                if (pos.y >= y && pos.y <= button.height + y) {
+            if (pos.x >= button.x && pos.x <= button.width + button.x) {
+                if (pos.y >= button.y && pos.y <= button.height + button.y) {
                     doFunc(button);
                 }
             }
@@ -34,8 +28,10 @@ public class Controller {
         switch (button.function) {
             case 1:
                 Gdx.app.log("1", "clicked");
+                break;
             case 2:
                 Gdx.app.log("2", "clicked");
+                break;
             default:
         }
     }
