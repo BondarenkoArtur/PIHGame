@@ -20,32 +20,31 @@ public class MenuScreen implements Screen {
     public static final int SCREEN_Y = 480;
     public static List<MenuButton> buttonsList = new ArrayList<MenuButton>();
     public static OrthographicCamera camera;
-    public int screen;
+    public static int currentScreen;
     public Controller controller = new Controller();
-    private int fps;
     private BitmapFont font;
     private SpriteBatch batch;
 
     public MenuScreen(int screen) {
         AssetLoader.loadMenu();
-        this.screen = screen;
+        currentScreen = screen;
         camera = new OrthographicCamera();
         camera.setToOrtho(true, SCREEN_X, SCREEN_Y);
         batch = new SpriteBatch();
         batch.setProjectionMatrix(camera.combined);
         font = new BitmapFont(true);
         font.setColor(Color.DARK_GRAY);
-        Gdx.input.setInputProcessor(new InputHandlerMenu(controller));
     }
 
     @Override
     public void render(float delta) {
-        fps = Math.round(1 / delta);
-        Gdx.gl.glClearColor(1 - fps / 100f, 0 + fps / 100f, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
+        batch.setColor(1, 1, 1, 1);
+        batch.draw(AssetLoader.background, 0, 0);
         for (MenuButton button : buttonsList) {
-            if (button.screen == screen) {
+            if (button.screen == currentScreen) {
                 batch.draw(AssetLoader.button, button.x, button.y, button.width, button.height);
                 float fontX = button.x + button.width / 2 - font.getBounds(button.title).width / 2;
                 float fontY = button.y + button.height / 2 - font.getBounds(button.title).height / 2;
@@ -61,7 +60,7 @@ public class MenuScreen implements Screen {
 
     @Override
     public void show() {
-
+        Gdx.input.setInputProcessor(new InputHandlerMenu(controller));
     }
 
     @Override

@@ -10,6 +10,6 @@ public class DesktopLauncher {
         config.title = "Put It Here";
         config.width = 320;
         config.height = 480;
-        new LwjglApplication(new PIHGame(), config);
+        new LwjglApplication(PIHGame.getInstance(), config);
     }
 } 

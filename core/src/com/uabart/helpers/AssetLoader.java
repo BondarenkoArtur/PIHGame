@@ -2,23 +2,32 @@ package com.uabart.helpers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.uabart.menu.MenuButton;
+import com.uabart.objects.Piece;
 import com.uabart.screens.MenuScreen;
 
 public class AssetLoader {
 
-    public static Texture button;
-    public static int amount;
+    public static Texture buttonAndOther;
+    public static TextureRegion button;
+    public static TextureRegion background;
+    public static Texture puzzleTexture;
+    public static String[] puzzlePieces;
+    public static int piecesAmount;
+    public static int buttonsAmount;
+    private static int pieceTempCounter = 5;
     private static int counter = 2;
     private static String[] file;
 
-
     public static void loadMenu() {
-        button = new Texture(Gdx.files.internal("button.png"));
-        button.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        buttonAndOther = new Texture(Gdx.files.internal("button.png"));
+        buttonAndOther.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        button = new TextureRegion(buttonAndOther, 0, 0, 600, 147);
+        background = new TextureRegion(buttonAndOther, 0, 147, 320, 480);
         file = Gdx.files.internal("buttonlist.txt").readString().split("\\s");
-        amount = Integer.parseInt(file[0]);
-        for (int i = 0; i < amount; i++) {
+        buttonsAmount = Integer.parseInt(file[0]);
+        for (int i = 0; i < buttonsAmount; i++) {
             addButton();
         }
     }
@@ -37,6 +46,25 @@ public class AssetLoader {
     }
 
     public static void disposeMenu() {
-        button.dispose();
+        buttonAndOther.dispose();
     }
+
+    public static void loadPuzzle(String filename) {
+        puzzleTexture = new Texture(Gdx.files.internal(filename + ".png"));
+        puzzlePieces = Gdx.files.internal(filename + ".txt").readString().split("\\s");
+        piecesAmount = Integer.parseInt(puzzlePieces[4]);
+        for (int i = 0; i < piecesAmount; i++) {
+
+        }
+    }
+
+    public static void addPiece() {
+        int x = Integer.parseInt(puzzlePieces[pieceTempCounter++]);
+        int y = Integer.parseInt(puzzlePieces[pieceTempCounter++]);
+        int width = Integer.parseInt(puzzlePieces[pieceTempCounter++]);
+        int height = Integer.parseInt(puzzlePieces[pieceTempCounter++]);
+        TextureRegion textureRegion = new TextureRegion(puzzleTexture, x, y, width, height);
+        Piece piece = new Piece(x, y, width, height, textureRegion);
+    }
+
 }
