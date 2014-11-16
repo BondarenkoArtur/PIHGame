@@ -17,11 +17,12 @@ public class AssetLoader {
     public static String[] puzzlePieces;
     public static int piecesAmount;
     public static int buttonsAmount;
-    private static int pieceTempCounter = 7;
-    private static int counter = 2;
+    private static int pieceTempCounter;
+    private static int counter;
     private static String[] file;
 
     public static void loadMenu() {
+        counter = 2;
         buttonAndOther = new Texture(Gdx.files.internal("button.png"));
         buttonAndOther.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         button = new TextureRegion(buttonAndOther, 0, 0, 600, 147);
@@ -51,6 +52,11 @@ public class AssetLoader {
     }
 
     public static void loadPuzzle(String filename) {
+        puzzleTexture = new Texture(Gdx.files.internal("background.png"));
+        puzzleTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        GameScreen.background = new TextureRegion(puzzleTexture, 320, 480);
+        GameScreen.background.flip(false, true);
+        pieceTempCounter = 7;
         puzzleTexture = new Texture(Gdx.files.internal(filename + ".png"));
         puzzleTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         puzzlePieces = Gdx.files.internal(filename + ".txt").readString().split("\\s");
@@ -58,9 +64,8 @@ public class AssetLoader {
         int y = Integer.parseInt(puzzlePieces[1]);
         int width = Integer.parseInt(puzzlePieces[2]);
         int height = Integer.parseInt(puzzlePieces[3]);
-        TextureRegion textureRegion = new TextureRegion(puzzleTexture, x, y, width, height);
-        textureRegion.flip(false, true);
-        GameScreen.fullPicture = textureRegion;
+        GameScreen.fullPicture = new TextureRegion(puzzleTexture, x, y, width, height);
+        GameScreen.fullPicture.flip(false, true);
         GameScreen.correctX = (GameScreen.SCREEN_X - GameScreen.fullPicture.getRegionWidth()) / 2;
         GameScreen.correctY = (GameScreen.SCREEN_Y - GameScreen.fullPicture.getRegionHeight()) / 2;
         piecesAmount = Integer.parseInt(puzzlePieces[5]);
@@ -79,7 +84,7 @@ public class AssetLoader {
         TextureRegion textureRegion = new TextureRegion(puzzleTexture, x, y, width, height);
         textureRegion.flip(false, true);
         pieceTempCounter++;
-        return new Piece(pieceTempCounter * 8 - (14 * 8), 30, width, height, textureRegion,
+        return new Piece(pieceTempCounter * 7 - (14 * 7), 20, width, height, textureRegion,
                 GameScreen.correctX + correctX, GameScreen.correctY + correctY);
     }
 

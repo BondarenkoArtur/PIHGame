@@ -35,6 +35,7 @@ public class Controller {
                 break;
             case 2:
                 Gdx.app.log("2", "clicked");
+                PIHGame.getInstance().showGame("elk");
                 break;
             default:
         }
