@@ -7,8 +7,6 @@ import com.uabart.screens.MenuScreen;
 public class PIHGame extends Game {
 
     public static PIHGame instance = new PIHGame();
-    private MenuScreen mainMenuScreen;
-    private GameScreen gameScreen;
 
     private PIHGame() {
     }
@@ -19,8 +17,7 @@ public class PIHGame extends Game {
 
     @Override
     public void create() {
-        mainMenuScreen = new MenuScreen(1);
-        setScreen(mainMenuScreen);
+        showMainMenu();
     }
 
     public void showGame(String string) {
@@ -28,7 +25,11 @@ public class PIHGame extends Game {
     }
 
     public void showMainMenu() {
-        setScreen(mainMenuScreen);
+        showMenu(1);
+    }
+
+    public void showMenu(int number) {
+        setScreen(new MenuScreen(number));
     }
 
 } 

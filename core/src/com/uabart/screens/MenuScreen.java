@@ -18,7 +18,7 @@ import java.util.List;
 public class MenuScreen implements Screen {
     public static final int SCREEN_X = 320;
     public static final int SCREEN_Y = 480;
-    public static List<MenuButton> buttonsList = new ArrayList<MenuButton>();
+    public static List<MenuButton> buttonsList;
     public static OrthographicCamera camera;
     public static int currentScreen;
     public Controller controller = new Controller();
@@ -26,6 +26,7 @@ public class MenuScreen implements Screen {
     private SpriteBatch batch;
 
     public MenuScreen(int screen) {
+        buttonsList = new ArrayList<MenuButton>();
         AssetLoader.loadMenu();
         currentScreen = screen;
         camera = new OrthographicCamera();
@@ -42,7 +43,17 @@ public class MenuScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         batch.setColor(1, 1, 1, 1);
-        batch.draw(AssetLoader.background, 0, 0);
+        if (currentScreen == 1)
+            batch.draw(AssetLoader.background, 0, 0);
+        if (currentScreen == 2) {
+            Gdx.gl.glClearColor(1, 190 / 255.0f, 0, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            batch.draw(AssetLoader.success, 0, 0);
+            float x = (GameScreen.SCREEN_X - GameScreen.fullPicture.getRegionWidth() * 0.8f) / 2;
+            float y = (250 - GameScreen.fullPicture.getRegionHeight() * 0.8f) / 2;
+            batch.draw(GameScreen.fullPicture, x, y,
+                    GameScreen.fullPicture.getRegionWidth() * 0.8f, GameScreen.fullPicture.getRegionHeight() * 0.8f);
+        }
         for (MenuButton button : buttonsList) {
             if (button.screen == currentScreen) {
                 batch.draw(AssetLoader.button, button.x, button.y, button.width, button.height);

@@ -37,6 +37,9 @@ public class Controller {
                 Gdx.app.log("2", "clicked");
                 PIHGame.getInstance().showGame("elk");
                 break;
+            case 3:
+                Gdx.app.log("3", "clicked");
+                PIHGame.getInstance().showMainMenu();
             default:
         }
     }

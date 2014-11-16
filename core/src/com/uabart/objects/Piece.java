@@ -13,7 +13,6 @@ public class Piece extends Actor {
     public int correctX;
     public int correctY;
     public TextureRegion texture;
-    private float movX, movY;
 
     public Piece(int x, int y, final int width, final int height, final TextureRegion texture, final int correctX, final int correctY) {
         this.setX(x);
@@ -25,6 +24,8 @@ public class Piece extends Actor {
         this.texture = texture;
         addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Piece.this.setX(getX() - width / 4.0f);
+                Piece.this.setY(getY() - height / 4.0f);
                 Piece.this.setWidth(width);
                 Piece.this.setHeight(height);
                 return true;
@@ -37,14 +38,16 @@ public class Piece extends Actor {
             }
 
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (Piece.this.getX() < Piece.this.correctX + 10 && Piece.this.getX() > Piece.this.correctX - 10) {
-                    if (Piece.this.getY() < Piece.this.correctY + 10 && Piece.this.getY() > Piece.this.correctY - 10) {
+                if (Piece.this.getX() < Piece.this.correctX + 20 && Piece.this.getX() > Piece.this.correctX - 20) {
+                    if (Piece.this.getY() < Piece.this.correctY + 20 && Piece.this.getY() > Piece.this.correctY - 20) {
                         GameScreen.finished.addActor(new Piece(correctX, correctY, width * 2, height * 2, texture, correctX, correctY));
                         Piece.this.remove();
                     }
                 }
-                    Piece.this.setWidth(width * 0.5f);
-                    Piece.this.setHeight(height * 0.5f);
+                Piece.this.setX(getX() + width / 4.0f);
+                Piece.this.setY(getY() + height / 4.0f);
+                Piece.this.setWidth(width * 0.5f);
+                Piece.this.setHeight(height * 0.5f);
             }
         });
     }

@@ -65,7 +65,7 @@ public class GameScreen implements Screen {
             countTouchables++;
         }
         if (countTouchables == stage.getActors().size)
-            PIHGame.getInstance().showMainMenu();
+            PIHGame.getInstance().showMenu(2);
     }
 
     @Override

@@ -12,7 +12,9 @@ public class AssetLoader {
 
     public static Texture buttonAndOther;
     public static TextureRegion button;
+    public static TextureRegion success;
     public static TextureRegion background;
+    public static TextureRegion gameBackground;
     public static Texture puzzleTexture;
     public static String[] puzzlePieces;
     public static int piecesAmount;
@@ -27,6 +29,11 @@ public class AssetLoader {
         buttonAndOther.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         button = new TextureRegion(buttonAndOther, 0, 0, 600, 147);
         background = new TextureRegion(buttonAndOther, 0, 147, 320, 480);
+        gameBackground = new TextureRegion(buttonAndOther, 640, 0, 320, 480);
+        background.flip(false, true);
+        gameBackground.flip(false, true);
+        success = new TextureRegion(buttonAndOther, 320, 147, 320, 480);
+        success.flip(false, true);
         file = Gdx.files.internal("buttonlist.txt").readString().split("\\s");
         buttonsAmount = Integer.parseInt(file[0]);
         for (int i = 0; i < buttonsAmount; i++) {
@@ -52,10 +59,7 @@ public class AssetLoader {
     }
 
     public static void loadPuzzle(String filename) {
-        puzzleTexture = new Texture(Gdx.files.internal("background.png"));
-        puzzleTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        GameScreen.background = new TextureRegion(puzzleTexture, 320, 480);
-        GameScreen.background.flip(false, true);
+        GameScreen.background = gameBackground;
         pieceTempCounter = 7;
         puzzleTexture = new Texture(Gdx.files.internal(filename + ".png"));
         puzzleTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
