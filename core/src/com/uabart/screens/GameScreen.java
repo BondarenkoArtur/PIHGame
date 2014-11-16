@@ -25,9 +25,8 @@ public class GameScreen implements Screen {
     public static String debug = "";
     public static Group finished;
     public static TextureRegion background;
-    public TextureRegion fullPuzzle;
+    public static OrthographicCamera cam;
     private BitmapFont font;
-    private OrthographicCamera cam;
     private Viewport viewport;
     private SpriteBatch batch;
     private boolean run;

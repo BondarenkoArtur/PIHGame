@@ -3,6 +3,7 @@ package com.uabart.objects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -33,8 +34,10 @@ public class Piece extends Actor {
             }
 
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                Piece.this.setX(getX() + Gdx.input.getDeltaX(pointer));
-                Piece.this.setY(getY() + Gdx.input.getDeltaY(pointer));
+                Vector3 pos = new Vector3(Gdx.input.getDeltaX(pointer), Gdx.input.getDeltaY(pointer), 0);
+                GameScreen.cam.unproject(pos);
+                Piece.this.setX(getX() + pos.x);
+                Piece.this.setY(getY() + pos.y);
             }
 
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
