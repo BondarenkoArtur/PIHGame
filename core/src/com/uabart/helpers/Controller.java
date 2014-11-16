@@ -31,7 +31,7 @@ public class Controller {
         switch (button.function) {
             case 1:
                 Gdx.app.log("1", "clicked");
-                PIHGame.getInstance().showGame();
+                PIHGame.getInstance().showGame("penguin");
                 break;
             case 2:
                 Gdx.app.log("2", "clicked");

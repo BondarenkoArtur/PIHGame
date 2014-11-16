@@ -20,12 +20,11 @@ public class PIHGame extends Game {
     @Override
     public void create() {
         mainMenuScreen = new MenuScreen(1);
-        gameScreen = new GameScreen("pinguin");
         setScreen(mainMenuScreen);
     }
 
-    public void showGame() {
-        setScreen(gameScreen);
+    public void showGame(String string) {
+        setScreen(new GameScreen(string));
     }
 
     public void showMainMenu() {
