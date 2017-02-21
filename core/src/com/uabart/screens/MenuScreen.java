@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.uabart.helpers.AssetLoader;
@@ -35,6 +36,7 @@ public class MenuScreen implements Screen {
         batch.setProjectionMatrix(camera.combined);
         font = new BitmapFont(true);
         font.setColor(Color.DARK_GRAY);
+        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
     @Override
@@ -62,6 +64,7 @@ public class MenuScreen implements Screen {
                 font.draw(batch, button.title, fontX, fontY);
             }
         }
+//        font.draw(batch, Gdx.app.getType() + "", 0, 0);
         batch.end();
     }
 

@@ -31,7 +31,6 @@ public class GameScreen implements Screen {
     private SpriteBatch batch;
     private boolean run;
 
-
     public GameScreen(String stageName) {
         batch = new SpriteBatch();
         cam = new OrthographicCamera();
@@ -41,7 +40,7 @@ public class GameScreen implements Screen {
         finished = new Group();
         stage.addActor(finished);
         finished.setTouchable(Touchable.disabled);
-        AssetLoader.loadPuzzle(stageName);
+        AssetLoader.loadAndCutPuzzle(stageName);
         font = new BitmapFont(true);
         font.setColor(1, 1, 1, 1);
     }

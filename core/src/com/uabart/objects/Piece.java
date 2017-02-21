@@ -15,7 +15,8 @@ public class Piece extends Actor {
     public int correctY;
     public TextureRegion texture;
 
-    public Piece(int x, int y, final int width, final int height, final TextureRegion texture, final int correctX, final int correctY) {
+    public Piece(int x, int y, final int width, final int height, final TextureRegion texture,
+                 final int correctX, final int correctY) {
         this.setX(x);
         this.setY(y);
         this.setWidth(width * 0.5f);
@@ -30,20 +31,20 @@ public class Piece extends Actor {
                 Piece.this.setWidth(width);
                 Piece.this.setHeight(height);
                 return true;
-
             }
 
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
                 Vector3 pos = new Vector3(Gdx.input.getDeltaX(pointer), Gdx.input.getDeltaY(pointer), 0);
                 GameScreen.cam.unproject(pos);
-                Piece.this.setX(getX() + pos.x);
                 Piece.this.setY(getY() + pos.y);
+                Piece.this.setX(getX() + pos.x);
             }
 
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (Piece.this.getX() < Piece.this.correctX + 20 && Piece.this.getX() > Piece.this.correctX - 20) {
                     if (Piece.this.getY() < Piece.this.correctY + 20 && Piece.this.getY() > Piece.this.correctY - 20) {
-                        GameScreen.finished.addActor(new Piece(correctX, correctY, width * 2, height * 2, texture, correctX, correctY));
+                        GameScreen.finished.addActor(new Piece(correctX, correctY, width * 2, height * 2, texture,
+                                correctX, correctY));
                         Piece.this.remove();
                     }
                 }

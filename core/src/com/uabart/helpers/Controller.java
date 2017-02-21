@@ -39,7 +39,24 @@ public class Controller {
                 break;
             case 3:
                 Gdx.app.log("3", "clicked");
+                PIHGame.getInstance().showGame("hippo");
+                break;
+            case 4:
+                Gdx.app.log("4", "clicked");
+                PIHGame.getInstance().showGame("dog");
+                break;
+            case 5:
+                Gdx.app.log("5", "clicked");
+                PIHGame.getInstance().showGame("owl");
+                break;
+            case 6:
+                Gdx.app.log("6", "clicked");
+                PIHGame.getInstance().showGame("sheep");
+                break;
+            case 512:
+                Gdx.app.log("512", "clicked");
                 PIHGame.getInstance().showMainMenu();
+                break;
             default:
         }
     }

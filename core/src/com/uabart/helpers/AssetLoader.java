@@ -20,6 +20,7 @@ public class AssetLoader {
     public static int piecesAmount;
     public static int buttonsAmount;
     private static int pieceTempCounter;
+    private static int pieceRowCounter;
     private static int counter;
     private static String[] file;
 
@@ -78,6 +79,32 @@ public class AssetLoader {
         }
     }
 
+    public static void loadAndCutPuzzle(String filename) {
+        int widthAmount = 3;
+        int heightAmount = 4;
+        GameScreen.background = gameBackground;
+        pieceTempCounter = 1;
+        pieceRowCounter = 1;
+        puzzleTexture = new Texture(Gdx.files.internal(filename + ".png"));
+        puzzleTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        puzzlePieces = Gdx.files.internal(filename + ".txt").readString().split("\\s");
+        int x = Integer.parseInt(puzzlePieces[0]);
+        int y = Integer.parseInt(puzzlePieces[1]);
+        int width = Integer.parseInt(puzzlePieces[2]);
+        int height = Integer.parseInt(puzzlePieces[3]);
+        GameScreen.fullPicture = new TextureRegion(puzzleTexture, x, y, width, height);
+        GameScreen.fullPicture.flip(false, true);
+        GameScreen.correctX = (GameScreen.SCREEN_X - GameScreen.fullPicture.getRegionWidth()) / 2;
+        GameScreen.correctY = (GameScreen.SCREEN_Y - GameScreen.fullPicture.getRegionHeight()) / 2;
+//        piecesAmount = Integer.parseInt(puzzlePieces[5]);
+        int ws = Math.round(width / widthAmount);
+        int hs = Math.round(height / heightAmount);
+        for (int i = 0; i < widthAmount; i++)
+            for (int j = 0; j < heightAmount; j++) {
+                GameScreen.stage.addActor(addPiece(i * ws, j * hs, ws, hs ));
+            }
+    }
+
     public static Piece addPiece() {
         int x = Integer.parseInt(puzzlePieces[pieceTempCounter++]);
         int y = Integer.parseInt(puzzlePieces[pieceTempCounter++]);
@@ -92,4 +119,20 @@ public class AssetLoader {
                 GameScreen.correctX + correctX, GameScreen.correctY + correctY);
     }
 
+
+    public static Piece addPiece(int x, int y, int width, int height) {
+        TextureRegion textureRegion = new TextureRegion(puzzleTexture, x, y, width, height);
+        textureRegion.flip(false, true);
+        int correctX = x;
+        int correctY = y;
+        int temp = pieceTempCounter;
+        pieceTempCounter += width/2;
+        if (pieceTempCounter > GameScreen.SCREEN_X) {
+            pieceRowCounter += height/2;
+            pieceTempCounter = width/2;
+            temp = 1;
+        }
+        return new Piece(temp, pieceRowCounter , width, height, textureRegion,
+                GameScreen.correctX + correctX, GameScreen.correctY + correctY);
+    }
 }
