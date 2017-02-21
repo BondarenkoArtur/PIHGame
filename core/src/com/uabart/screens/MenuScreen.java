@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.uabart.helpers.AssetLoader;
 import com.uabart.helpers.Controller;
@@ -58,10 +59,12 @@ public class MenuScreen implements Screen {
         }
         for (MenuButton button : buttonsList) {
             if (button.screen == currentScreen) {
+                GlyphLayout glyphLayout = new GlyphLayout();
+                glyphLayout.setText(font, button.title);
                 batch.draw(AssetLoader.button, button.x, button.y, button.width, button.height);
-                float fontX = button.x + button.width / 2 - font.getBounds(button.title).width / 2;
-                float fontY = button.y + button.height / 2 - font.getBounds(button.title).height / 2;
-                font.draw(batch, button.title, fontX, fontY);
+                float fontX = button.x + button.width / 2 - glyphLayout.width / 2;
+                float fontY = button.y + button.height / 2 - glyphLayout.height / 2;
+                font.draw(batch, glyphLayout, fontX, fontY);
             }
         }
 //        font.draw(batch, Gdx.app.getType() + "", 0, 0);

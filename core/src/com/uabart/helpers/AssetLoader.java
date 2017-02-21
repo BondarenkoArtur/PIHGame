@@ -25,7 +25,7 @@ public class AssetLoader {
     private static String[] file;
 
     public static void loadMenu() {
-        counter = 2;
+        counter = 1;
         buttonAndOther = new Texture(Gdx.files.internal("button.png"));
         buttonAndOther.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         button = new TextureRegion(buttonAndOther, 0, 0, 600, 147);
@@ -50,7 +50,6 @@ public class AssetLoader {
         int height = Integer.parseInt(file[counter++]);
         String title = file[counter++];
         int function = Integer.parseInt(file[counter++]);
-        counter++;
         MenuButton temp = new MenuButton(screen, x, y, width, height, title, function);
         MenuScreen.buttonsList.add(temp);
     }
